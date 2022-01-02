@@ -3,6 +3,7 @@ defmodule PentoWeb.WrongLive do
 
   def mount(_params, session, socket) do
     rand_int = Enum.random(1..10)
+    socket = assign_defaults(session, socket)
     {
       :ok,
       assign(

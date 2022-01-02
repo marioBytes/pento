@@ -1,0 +1,53 @@
+<h1>Listing Faqs</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.faq_index_path(@socket, :index)}>
+    <.live_component
+      module={PentoWeb.FAQLive.FormComponent}
+      id={@faq.id || :new}
+      title={@page_title}
+      action={@live_action}
+      faq={@faq}
+      return_to={Routes.faq_index_path(@socket, :index)}
+    />
+  </.modal>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Question</th>
+      <th>Answer</th>
+      <th>Vote count</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="faqs">
+    <%= for faq <- @faqs do %>
+      <tr id={"faq-#{faq.id}"}>
+        <td>
+          <%=
+            live_redirect "#{faq.question}",
+            to: Routes.faq_show_path(@socket, :show, faq)
+          %>
+        </td>
+        <td>
+          <%= if String.length(faq.answer) >= 25 do %>
+            <%= String.slice(faq.answer, 0..25) %>...
+          <% else %>
+            <%= faq.answer %>
+          <% end %>
+        </td>
+        <td><%= faq.vote_count %></td>
+
+        <td>
+          <span><%= live_patch "Edit", to: Routes.faq_index_path(@socket, :edit, faq) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: faq.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Faq", to: Routes.faq_index_path(@socket, :new) %></span>

@@ -5,7 +5,8 @@ defmodule PentoWeb.ProductLive.Index do
   alias Pento.Catalog.Product
 
   @impl true
-  def mount(_params, _session, socket) do
+  def mount(_params, session, socket) do
+    socket = assign_defaults(session,socket)
     {:ok, assign(socket, :products, list_products())}
   end
 
