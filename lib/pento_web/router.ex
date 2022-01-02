@@ -86,6 +86,13 @@ defmodule PentoWeb.Router do
     live "/products/:id", ProductLive.Show, :show
     live "/products/:id/edit", ProductLive.Show, :edit
 
+    live "/faq", FAQLive.Index, :index
+    live "/faq/new", FAQLive.Index, :new
+    live "/faq/:id/edit", FAQLive.Index, :edit
+
+    live "faq/:id", FAQLive.Show, :show
+    live "/faq/:id/edit", FAQLive.Show, :edit
+
     live "/guess", WrongLive
   end
 
