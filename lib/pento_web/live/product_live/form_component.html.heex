@@ -8,23 +8,27 @@
     phx-target={@myself}
     phx-change="validate"
     phx-submit="save">
-  
+
     <%= label f, :name %>
     <%= text_input f, :name %>
     <%= error_tag f, :name %>
-  
+
     <%= label f, :description %>
     <%= text_input f, :description %>
     <%= error_tag f, :description %>
-  
+
     <%= label f, :unit_price %>
     <%= number_input f, :unit_price, step: "any" %>
     <%= error_tag f, :unit_price %>
-  
+
     <%= label f, :sku %>
     <%= number_input f, :sku %>
     <%= error_tag f, :sku %>
-  
+
+    <div phx-drop-target={@uploads.image.ref}>
+      <%= live_file_input @uploads.image %>
+    </div>
+
     <div>
       <%= submit "Save", phx_disable_with: "Saving..." %>
     </div>
