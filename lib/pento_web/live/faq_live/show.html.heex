@@ -30,6 +30,9 @@
     <%= @faq.vote_count %>
   </li>
 
+  <button phx-click="upvote">UP VOTE</button>
+  <button phx-click="downvote">DOWN VOTE</button>
+
 </ul>
 
 <span><%= live_patch "Edit", to: Routes.faq_show_path(@socket, :edit, @faq), class: "button" %></span> |

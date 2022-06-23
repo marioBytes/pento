@@ -5,7 +5,8 @@ defmodule Pento.FAQs do
   alias Pento.FAQs.FAQ
 
   def list_faqs do
-    Repo.all(FAQ)
+    from(f in FAQ, order_by: f.id)
+    |> Repo.all()
   end
 
   def get_faq!(id), do: Repo.get!(FAQ, id)
@@ -17,9 +18,19 @@ defmodule Pento.FAQs do
     |> Repo.insert()
   end
 
-  def increment_faq(%FAQ{} = faq, attrs) do
+  def increment_faq(%FAQ{} = faq) do
+    incremented_vote_count = faq.vote_count + 1
+
     faq
-    |> FAQ.changeset(attrs)
+    |> FAQ.changeset(%{vote_count: incremented_vote_count})
+    |> Repo.update()
+  end
+
+  def decrement_faq(%FAQ{} = faq) do
+    decremented_vote_count = faq.vote_count - 1
+
+    faq
+    |> FAQ.changeset(%{vote_count: decremented_vote_count})
     |> Repo.update()
   end
 
