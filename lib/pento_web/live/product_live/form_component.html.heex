@@ -25,6 +25,16 @@
     <%= number_input f, :sku %>
     <%= error_tag f, :sku %>
 
+    <p>entries</p>
+    <p>
+      <%= for entry <- @uploads.image.entries do %>
+        <p>
+          <%= entry.client_name %> - <%= entry.progress %>%
+          <button phx-target="{@myself}" phx-click="cancel-upload" phx-value-ref="{entry.ref}">cancel</button>
+        </p>
+      <% end %>
+    </p>
+
     <div phx-drop-target={@uploads.image.ref}>
       <%= live_file_input @uploads.image %>
     </div>
