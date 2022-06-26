@@ -30,13 +30,17 @@ defmodule PentoWeb.ProductLive.FormComponent do
     {:noreply, assign(socket, :changeset, changeset)}
   end
 
+  @impl Phoenix.LiveView
+  def handle_event("cancel-upload", %{"ref" => ref}, socket) do
+    {:noreply, cancel_upload(socket, :image, ref)}
+  end
+
+  @impl Phoenix.LiveView
   def handle_event("save", %{"product" => product_params}, socket) do
     save_product(socket, socket.assigns.action, product_params)
   end
 
   defp handle_progress(:image, entry, socket) do
-    :timer.sleep(200)
-
     if entry.done? do
       {:ok, path} =
         consume_uploaded_entry(
@@ -60,6 +64,12 @@ defmodule PentoWeb.ProductLive.FormComponent do
     File.cp!(path, dest)
     {:ok, Routes.static_path(socket, "/images/#{Path.basename(dest)}")}
   end
+
+  def error_to_string(:too_large), do: "Too large"
+
+  def error_to_string(:not_accepted), do: "You have selected an unacceptable file type"
+
+  def error_to_string(:too_many_files), do: "You have selected too many files"
 
   defp save_product(socket, :edit, params) do
     result = Catalog.update_product(socket.assigns.product, product_params(socket, params))
