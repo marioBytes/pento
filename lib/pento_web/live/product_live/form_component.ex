@@ -72,7 +72,10 @@ defmodule PentoWeb.ProductLive.FormComponent do
          |> push_redirect(to: socket.assigns.return_to)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        {:noreply, assign(socket, :changeset, changeset)}
+        {:noreply,
+         socket
+         |> assign(:changeset, changeset)
+         |> put_flash(:error, "Could not update product. Please check form for any errors.")}
     end
   end
 
@@ -85,7 +88,10 @@ defmodule PentoWeb.ProductLive.FormComponent do
          |> push_redirect(to: socket.assigns.return_to)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        {:noreply, assign(socket, changeset: changeset)}
+        {:noreply,
+         socket
+         |> assign(changeset: changeset)
+         |> put_flash(:error, "Could not submit product. Please check form for any errors.")}
     end
   end
 

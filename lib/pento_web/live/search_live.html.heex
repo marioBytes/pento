@@ -1,0 +1,47 @@
+<h2>Search for a Product by SKU!</h2>
+
+<div>
+  <.form
+    let={f}
+    for={@changeset}
+    id="search-form"
+    phx-change="validate"
+    phx-submit="save"
+  >
+    <%= label f, :search_term %>
+    <%= number_input f, :search_term %>
+    <%= error_tag f, :search_term %>
+
+    <%= submit "Search by SKU", phx_disable_with: "Looking for product..." %>
+  </.form>
+
+  <%= if @product do %>
+    <ul>
+
+      <li>
+        <strong>Name:</strong>
+        <%=
+          live_redirect @product.name,
+          to: Routes.product_show_path(@socket, :show, @product)
+        %>
+      </li>
+
+      <li>
+        <strong>Description:</strong>
+        <%= @product.description %>
+      </li>
+
+      <li>
+        <strong>Unit price:</strong>
+        $<%= @product.unit_price %>
+      </li>
+
+      <li>
+        <strong>Sku:</strong>
+        <%= @product.sku %>
+      </li>
+
+    </ul>
+
+  <% end %>
+</div>
