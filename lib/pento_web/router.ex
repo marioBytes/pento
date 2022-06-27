@@ -93,10 +93,12 @@ defmodule PentoWeb.Router do
     live "faq/:id", FAQLive.Show, :show
     live "/faq/:id/edit", FAQLive.Show, :edit
 
-    live "/guess", WrongLive
-    live "/promo", PromoLive
-    live "/search", SearchLive
-    live "/survey", SurveyLive, :index
+    live_session :default, on_mount: PentoWeb.UserAuthLive do
+      live "/guess", WrongLive
+      live "/promo", PromoLive
+      live "/search", SearchLive
+      live "/survey", SurveyLive, :index
+    end
   end
 
   scope "/", PentoWeb do
