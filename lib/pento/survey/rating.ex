@@ -6,7 +6,7 @@ defmodule Pento.Survey.Rating do
   alias Pento.Catalog.Product
 
   schema "ratings" do
-    field :starts, :integer
+    field :stars, :integer
     belongs_to :user, User
     belongs_to :product, Product
 
@@ -16,9 +16,9 @@ defmodule Pento.Survey.Rating do
   @doc false
   def changeset(rating, attrs) do
     rating
-    |> cast(attrs, [:starts, :user_id, :product_id])
-    |> validate_required([:starts, :user_id, :product_id])
-    |> validate_inclusion(:starts, 1..5)
+    |> cast(attrs, [:stars, :user_id, :product_id])
+    |> validate_required([:stars, :user_id, :product_id])
+    |> validate_inclusion(:stars, 1..5)
     |> unique_constraint(:product_id, name: :index_ratings_on_user_product)
   end
 end
