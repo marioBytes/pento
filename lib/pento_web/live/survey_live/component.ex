@@ -11,4 +11,16 @@ defmodule PentoWeb.SurveyLive.Component do
     </h3>
     """
   end
+
+  def custom_hero(assigns) do
+    ~H"""
+      <h1><%= @content %></h1>
+    """
+  end
+
+  def list_item(assigns) do
+    ~H"""
+      <li><%= render_slot(@inner_block) %></li>
+    """
+  end
 end

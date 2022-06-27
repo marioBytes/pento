@@ -6,3 +6,12 @@
 <% else %>
   <h2>Demographic Form coming soon!</h2>
 <% end %>
+<Component.custom_hero content="Here is some content" />
+<Component.custom_hero content="Hello, world!" />
+<Component.custom_hero content="This was made using function components!" />
+
+<ul>
+  <%= for item <- @items do %>
+    <Component.list_item><%= item %></Component.list_item>
+  <% end %>
+</ul>
