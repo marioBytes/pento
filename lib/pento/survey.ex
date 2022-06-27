@@ -8,6 +8,11 @@ defmodule Pento.Survey do
 
   alias Pento.Survey.Demographic
 
+  def get_demographic_by_user(user) do
+    Demographic.Query.for_user(user)
+    |> Repo.one()
+  end
+
   @doc """
   Returns the list of demographics.
 
