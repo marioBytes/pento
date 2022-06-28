@@ -12,11 +12,30 @@ defmodule PentoWeb.DemographicLive.Form do
      |> assign_changeset()}
   end
 
+  def handle_event("save", %{"demographic" => demographic_params}, socket) do
+    {:noreply, save_demographic(socket, demographic_params)}
+  end
+
+  def handle_event("validate", _, socket) do
+    {:noreply, socket}
+  end
+
   defp assign_demographics(%{assigns: %{user: current_user}} = socket) do
     assign(socket, :demographic, %Demographic{user_id: current_user.id})
   end
 
   defp assign_changeset(%{assigns: %{demographic: demographic}} = socket) do
     assign(socket, :changeset, Survey.change_demographic(demographic))
+  end
+
+  defp save_demographic(socket, demographic_params) do
+    case Survey.create_demographic(demographic_params) do
+      {:ok, demographic} ->
+        send(self(), {:created_demographic, demographic})
+        socket
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        assign(socket, changeset: changeset)
+    end
   end
 end
