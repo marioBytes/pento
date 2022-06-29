@@ -45,6 +45,7 @@ defmodule PentoWeb.RatingLive.Form do
       {:ok, rating} ->
         product = %{product | ratings: [rating]}
         send(self(), {:created_rating, product, product_index})
+        socket
 
       {:error, %Ecto.Changeset{} = changeset} ->
         assign(socket, changeset: changeset)
