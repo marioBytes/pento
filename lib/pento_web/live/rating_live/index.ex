@@ -8,7 +8,7 @@ defmodule PentoWeb.RatingLive.Index do
     ~H"""
       <div class="survey-component-container">
         <.heading products={@products} />
-        <.list products={@products} />
+        <.list products={@products} current_user={@current_user} />
       </div>
     """
   end
