@@ -42,6 +42,6 @@ defmodule PentoWeb.RatingLive.Index do
   end
 
   defp ratings_complete?(products) do
-    Enum.all?(products, fn product -> not Enum.empty?(product) end)
+    Enum.all?(products, fn product -> Enum.empty?(product.ratings) end)
   end
 end
