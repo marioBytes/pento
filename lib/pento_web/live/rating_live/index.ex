@@ -3,6 +3,7 @@ defmodule PentoWeb.RatingLive.Index do
   use Phoenix.HTML
 
   alias PentoWeb.RatingLive
+  alias PentoWeb.RatingLive.Show
 
   def products(assigns) do
     ~H"""
@@ -26,7 +27,7 @@ defmodule PentoWeb.RatingLive.Index do
     ~H"""
       <%= for {product, index} <- Enum.with_index(@products) do %>
         <%= if rating = List.first(product.ratings) do %>
-          <RatingLive.Show.stars rating={rating} product={product} />
+          <Show.stars rating={rating} product={product} />
         <% else %>
           <.live_component
             module={RatingLive.Form}
