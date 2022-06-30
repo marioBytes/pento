@@ -9,6 +9,7 @@ defmodule PentoWeb.SurveyLive do
   alias PentoWeb.DemographicLive.Form
   alias PentoWeb.RatingLive
   alias PentoWeb.RatingLive.Index
+  alias PentoWeb.ButtonLive
 
   def mount(_params, _session, socket) do
     socket =
@@ -16,6 +17,7 @@ defmodule PentoWeb.SurveyLive do
       |> assign_demographic()
       |> assign_list_items()
       |> assign_products()
+      |> assign_toggle()
 
     {:ok, socket}
   end
@@ -28,12 +30,21 @@ defmodule PentoWeb.SurveyLive do
     {:noreply, handle_rating_created(socket, updated_product, product_index)}
   end
 
+  def handle_event("toggle-content", _, %{assigns: %{content_shown: content_shown}} = socket) do
+    content_shown = not content_shown
+    {:noreply, assign(socket, :content_shown, content_shown)}
+  end
+
   defp assign_demographic(%{assigns: %{current_user: current_user}} = socket) do
     assign(socket, :demographic, Survey.get_demographic_by_user(current_user))
   end
 
   defp assign_products(%{assigns: %{current_user: current_user}} = socket) do
     assign(socket, :products, list_products(current_user))
+  end
+
+  defp assign_toggle(socket) do
+    assign(socket, :content_shown, true)
   end
 
   defp handle_demographic_created(socket, demographic) do
@@ -60,8 +71,9 @@ defmodule PentoWeb.SurveyLive do
     items = [
       "item1",
       "item2",
-      "item3",
+      "item3"
     ]
+
     assign(socket, :items, items)
   end
 end

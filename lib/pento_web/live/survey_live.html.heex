@@ -1,13 +1,22 @@
 <section class="row">
   <h2>Survey</h2>
 </section>
-<%= if @demographic do %>
-  <DemographicLive.Show.details demographic={@demographic} />
-  <RatingLive.Index.products
-    products={@products}
-    current_user={@current_user}
-    demographic={@demographic}
-  />
-<% else %>
-  <.live_component module={DemographicLive.Form} id="demographic-form" user={@current_user} />
+<ButtonLive.button phx-click="log-something">
+  <%= if @content_shown do %>
+    Contract -
+  <% else %>
+    Expand +
+  <% end %>
+</ButtonLive.button>
+<%= if @content_shown do %>
+  <%= if @demographic do %>
+    <DemographicLive.Show.details demographic={@demographic} />
+    <RatingLive.Index.products
+      products={@products}
+      current_user={@current_user}
+      demographic={@demographic}
+    />
+  <% else %>
+    <.live_component module={DemographicLive.Form} id="demographic-form" user={@current_user} />
+  <% end %>
 <% end %>
