@@ -1,7 +1,5 @@
 <div>
-  <h1>Survey Results</h1>
-
-  <%= for {name, average_rating} <- @products_with_average_ratings do %>
-    <span><%= name %></span> | <span><%= average_rating %></span><br />
-  <% end %>
+  <div id="survey-results-chart">
+    <%= @chart_svg %>
+  </div>
 </div>
