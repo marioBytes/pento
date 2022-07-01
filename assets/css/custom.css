@@ -1,0 +1,125 @@
+.survey-component-container {
+  background-color: #fefefe;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  margin-bottom: 20px;
+}
+
+.survey-component-container input {
+  padding: 10px;
+}
+
+.survey-component-container select {
+  margin-right: 10px;
+}
+
+.survey-component-container h4 {
+  font-weight: bold;
+}
+
+.fa.fa-star.checked {
+  color: orange;
+}
+
+.fa.fa-star {
+  padding: 3px;
+}
+
+.survey-component-container ul li {
+  list-style: none;
+}
+
+.fa.fa-check.survey {
+  color: green;
+}
+
+.exc-tick {
+  stroke: grey;
+}
+
+.exc-tick text {
+  fill: grey;
+  stroke: none;
+  font-size: 1.3rem;
+}
+
+.exc-grid {
+  stroke: lightgrey;
+}
+
+.exc-legend {
+  stroke: black;
+}
+
+.exc-legend text {
+  fill: grey;
+  font-size: 1.3rem;
+  stroke: none;
+}
+
+.exc-title {
+  fill: darkslategray;
+  font-size: 2.3rem;
+  stroke: none;
+  padding-bottom: 10px;
+}
+
+.exc-subtitle {
+  fill: darkgrey;
+  font-size: 1.5rem;
+  stroke: none;
+}
+
+.exc-domain {
+  stroke: rgb(207, 207, 207);
+}
+
+.exc-barlabel-in {
+  fill: white;
+  font-size: 1.0rem;
+}
+
+.exc-barlabel-out {
+  fill: grey;
+  font-size: 0.7rem;
+}
+
+.float-container {
+  padding: 20px;
+}
+
+.float-child {
+  width: 33%;
+  float: left;
+  padding: 20px;
+}
+
+#survey-results-component {
+  border: 1px solid;
+}
+
+#survey-results-chart {
+  padding-right: 100px;
+}
+
+.survey-results-filters {
+  padding-left: 1000px;
+}
+
+.user-activity-component, .product-sales-component {
+  border: 1px solid;
+  padding: 10px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.user-activity-component h2, h3 {
+  background: rebeccapurple;
+  color: white;
+  padding: 10px;
+}
+
+.user-activity-component ul, p {
+  padding-left: 20px;
+}
