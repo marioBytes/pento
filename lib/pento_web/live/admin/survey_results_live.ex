@@ -1,5 +1,6 @@
 defmodule PentoWeb.Admin.SurveyResultsLive do
   use PentoWeb, :live_component
+  use PentoWeb, :chart_live
 
   alias Pento.Catalog
   alias Contex.Plot
@@ -59,27 +60,12 @@ defmodule PentoWeb.Admin.SurveyResultsLive do
     socket |> assign(:dataset, make_bar_chart_dataset(products_with_average_ratings))
   end
 
-  defp make_bar_chart_dataset(data) do
-    Contex.Dataset.new(data)
-  end
-
   defp assign_chart(%{assigns: %{dataset: dataset}} = socket) do
     socket |> assign(:chart, make_bar_chart(dataset))
   end
 
-  defp make_bar_chart(dataset) do
-    Contex.BarChart.new(dataset)
-  end
-
   def assign_chart_svg(%{assigns: %{chart: chart}} = socket) do
-    socket |> assign(:chart_svg, render_bar_chart(chart))
-  end
-
-  defp render_bar_chart(chart) do
-    Plot.new(500, 400, chart)
-    |> Plot.titles(title(), subtitle())
-    |> Plot.axis_labels(x_axis(), y_axis())
-    |> Plot.to_svg()
+    socket |> assign(:chart_svg, render_bar_chart(chart, title(), subtitle(), x_axis(), y_axis()))
   end
 
   defp title, do: "Product ratings"
