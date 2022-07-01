@@ -1,4 +1,17 @@
 <div>
+  <.form
+    for={:age_group_filter}
+    phx-change="age_group_filter"
+    phx_target={@myself}
+    id={@id}
+  >
+    <label>Filter by age group:</label>
+    <select name="age_group_filter" id="age_group_filter">
+      <%= for age_group <- ["all", "18 and under", "18 to 25", "25 to 35", "35 and up"] do %>
+        <option value={age_group} selected={@age_group_filter == age_group}><%= age_group %></option>
+      <% end %>
+    </select>
+  </.form>
   <div id="survey-results-chart">
     <%= @chart_svg %>
   </div>
