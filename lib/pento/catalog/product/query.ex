@@ -49,6 +49,10 @@ defmodule Pento.Catalog.Product.Query do
     query |> apply_age_group_filter(filter)
   end
 
+  def filter_by_gender_group(query \\ base(), filter) do
+    query |> apply_gender_group_filter(filter)
+  end
+
   defp apply_age_group_filter(query, "18 and under") do
     birth_year = DateTime.utc_now().year - 18
 
@@ -84,6 +88,24 @@ defmodule Pento.Catalog.Product.Query do
   end
 
   defp apply_age_group_filter(query, _filter), do: query
+
+  defp apply_gender_group_filter(query, "male" = filter) do
+    query |> where([p, r, u, d], d.gender == ^filter)
+  end
+
+  defp apply_gender_group_filter(query, "female" = filter) do
+    query |> where([p, r, u, d], d.gender == ^filter)
+  end
+
+  defp apply_gender_group_filter(query, "other" = filter) do
+    query |> where([p, r, u, d], d.gender == ^filter)
+  end
+
+  defp apply_gender_group_filter(query, "prefer not to say" = filter) do
+    query |> where([p, r, u, d], d.gender == ^filter)
+  end
+
+  defp apply_gender_group_filter(query, _filter), do: query
 
   def with_zero_ratings(query \\ base()) do
     query |> select([p], {p.name, 0})
