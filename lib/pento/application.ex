@@ -15,6 +15,7 @@ defmodule Pento.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Pento.PubSub},
       # Start the Endpoint (http/https)
+      PentoWeb.Presence,
       PentoWeb.Endpoint
       # Start a worker by calling: Pento.Worker.start_link(arg)
       # {Pento.Worker, arg}
