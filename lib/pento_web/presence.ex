@@ -12,6 +12,7 @@ defmodule PentoWeb.Presence do
     Presence.track(
       pid,
       @user_activity_topic,
+      product.name,
       %{users: [%{email: user_email}]}
     )
   end
