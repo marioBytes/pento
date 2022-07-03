@@ -22,4 +22,9 @@ defmodule PentoWeb.Admin.DashboardLive do
     send_update(PentoWeb.Admin.SurveyResultsLive, id: socket.assigns.survey_results_component_id)
     {:noreply, socket}
   end
+
+  def handle_info(%{event: "presence_diff"}, socket) do
+    send_update(PentoWeb.UserActivityLive, id: socket.assigns.user_activity_component_id)
+    {:noreply, socket}
+  end
 end
