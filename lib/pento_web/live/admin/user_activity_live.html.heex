@@ -1,0 +1,15 @@
+<div class="user-activity-component">
+  <h2>User Activity</h2>
+
+  <p>Active users currently viewing games</p>
+  <div>
+    <%= for {product_name, users} <- @user_activity do %>
+      <h3><%= product_name %></h3>
+      <ul>
+        <%= for user <- users do %>
+          <li><%= user.email %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+</div>
