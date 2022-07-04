@@ -10,9 +10,10 @@ defmodule PentoWeb.SurveyLive do
   alias PentoWeb.RatingLive
   alias PentoWeb.RatingLive.Index
   alias PentoWeb.ButtonLive
-  alias PentoWeb.{Demographic, RatingLive, Endpoint}
+  alias PentoWeb.{Demographic, RatingLive, Endpoint, Presence}
 
   @survey_results_topic "survey_results"
+  @user_survey_topic "user_survey"
 
   def mount(_params, _session, socket) do
     socket =
@@ -21,6 +22,8 @@ defmodule PentoWeb.SurveyLive do
       |> assign_list_items()
       |> assign_products()
       |> assign_toggle()
+
+    track_user(socket)
 
     {:ok, socket}
   end
@@ -80,5 +83,11 @@ defmodule PentoWeb.SurveyLive do
     ]
 
     assign(socket, :items, items)
+  end
+
+  def track_user(%{assigns: %{current_user: current_user}} = socket) do
+    if connected?(socket) do
+      Presence.track_survey(self(), current_user.id)
+    end
   end
 end

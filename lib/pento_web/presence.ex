@@ -7,6 +7,7 @@ defmodule PentoWeb.Presence do
   alias Pento.Accounts
 
   @user_activity_topic "user_activity"
+  @user_survey_topic "user_survey"
 
   def track_user(pid, product, user_email) do
     Presence.track(
@@ -34,5 +35,32 @@ defmodule PentoWeb.Presence do
 
   def users_from_meta_map(meta_map) do
     get_in(meta_map, [:users])
+  end
+
+  def track_survey(pid, user_id) do
+    Presence.track(
+      pid,
+      @user_survey_topic,
+      "survey-form",
+      %{users: [%{user_id: user_id}]}
+    )
+  end
+
+  def count_survey_users() do
+    Presence.list(@user_survey_topic)
+    |> Enum.map(&extract_users/1)
+    |> maybe_count_users()
+  end
+
+  defp extract_users({_key, %{metas: metas}}) do
+    users_from_metas_list(metas)
+  end
+
+  defp maybe_count_users(user_ids) do
+    if Enum.any?(user_ids) do
+      user_ids |> List.first() |> Enum.count()
+    else
+      0
+    end
   end
 end
