@@ -86,5 +86,9 @@ defmodule PentoWeb.AdminDashboardLiveTest do
       create_rating(user2, product, 3)
       :ok
     end
+
+    test "it filters by age group", %{conn: conn} do
+      {:ok, view, _html} = live(conn, "/admin-dashboard")
+    end
   end
 end
