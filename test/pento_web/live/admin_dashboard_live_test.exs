@@ -102,6 +102,7 @@ defmodule PentoWeb.AdminDashboardLiveTest do
 
       send(view.pid, %{event: "rating_created"})
       :timer.sleep(2)
+      assert render(view) =~ "<title>2.67</title>"
     end
   end
 end
