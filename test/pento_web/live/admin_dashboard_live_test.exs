@@ -92,5 +92,9 @@ defmodule PentoWeb.AdminDashboardLiveTest do
       params = %{"age_group_filter" => "18 and under"}
       assert view |> element("#age-group-form") |> render_change(params) =~ "<title>2.00</title>"
     end
+
+    test "it updates to display newly created ratings", %{conn: conn, product: product} do
+      {:ok, view, html} = live(conn, "/admin-dashboard")
+    end
   end
 end
