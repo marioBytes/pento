@@ -95,6 +95,10 @@ defmodule PentoWeb.AdminDashboardLiveTest do
 
     test "it updates to display newly created ratings", %{conn: conn, product: product} do
       {:ok, view, html} = live(conn, "/admin-dashboard")
+      assert html =~ "<title>2.50</title>"
+      user3 = user_fixture(@create_user3_attrs)
+      create_demographic(user3)
+      create_rating(user3, product, 3)
     end
   end
 end
