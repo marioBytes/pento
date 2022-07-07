@@ -85,5 +85,9 @@ defmodule PentoWeb.RatingLiveTest do
       create_rating(4, user2, product)
       :ok
     end
+
+    test "Form component rendered when rating does not exist", %{user: user, product: product} do
+      assert render_component(&PentoWeb.RatingLive.Index.products/1, products: [], current_user: user) =~ "<div class=\"survey-component-container\">\n    <h2>\n    Ratings\n    &#x2713;\n  </h2>\n    \n  </div>"
+    end
   end
 end
