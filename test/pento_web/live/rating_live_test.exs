@@ -89,5 +89,16 @@ defmodule PentoWeb.RatingLiveTest do
     test "Form component rendered when rating does not exist", %{user: user, product: product} do
       assert render_component(&PentoWeb.RatingLive.Index.products/1, products: [], current_user: user) =~ "<div class=\"survey-component-container\">\n    <h2>\n    Ratings\n    &#x2713;\n  </h2>\n    \n  </div>"
     end
+
+    test "Component renders correct rating details", %{user: user, product: product} do
+      %{rating: rating} = create_rating(2, user, product)
+      product = %{product | ratings: [rating]}
+
+      assert render_component(&PentoWeb.RatingLive.Index.products/1,
+               products: [product],
+               current_user: user
+             ) =~
+               "<div class=\"survey-component-container\">\n    <h2>\n    Ratings\n    \n  </h2>\n    \n    \n      <div>\n    <h4>\n      Test Game:<br>\n      &#x2605; &#x2605; &#x2606 &#x2606 &#x2606\n    </h4>\n  </div>\n    \n  \n  </div>"
+    end
   end
 end
