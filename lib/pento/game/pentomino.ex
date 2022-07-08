@@ -8,4 +8,6 @@ defmodule Pento.Game.Pentomino do
     reflected: false,
     location: @default_location
   ]
+
+  def new(fields \\ []), do: __struct__(fields)
 end
