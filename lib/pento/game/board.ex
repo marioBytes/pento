@@ -24,4 +24,19 @@ defmodule Pento.Game.Board do
 
   defp palette(:all), do: [:i, :l, :y, :n, :p, :w, :u, :v, :s, :f, :x, :t]
   defp palette(:small), do: [:u, :v, :p]
+
+  def to_shape(board) do
+    Shape.__struct__(color: :purple, name: :board, points: board.points)
+  end
+
+  def to_shapes(board) do
+    board_shape = to_shape(board)
+    pento_shapes =
+      [board.active_pento | board.completed_pentos]
+      |> Enum.reverse()
+      |> Enum.filter(& &1)
+      |> Enum.map(&Pentomino.to_shape/1)
+
+    [board_shape | pento_shapes]
+  end
 end
