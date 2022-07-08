@@ -1,5 +1,13 @@
 defmodule Pento.Game.Shape do
+  alias Pento.Game.Point
+
   defstruct color: :blue, name: :x, points: []
+
+  def new(name, rotation, reflected, location) do
+    points = name |> points() |> Enum.map(&Point.prepare(&1, rotation, reflected, location))
+
+    %__MODULE__{points: points, color: color(name), name: name}
+  end
 
   defp color(:i), do: :dark_green
   defp color(:l), do: :green
