@@ -1,5 +1,5 @@
 defmodule Pento.Game.Pentomino do
-  alias Pento.Game.Point
+  alias Pento.Game.{Point, Shape}
 
   @names [:i, :l, :y, :n, :p, :w, :u, :v, :s, :f, :x, :t]
   @default_location{8, 8}
@@ -35,5 +35,9 @@ defmodule Pento.Game.Pentomino do
 
   def right(p) do
     %{p | location: Point.move(p.location, {1, 0})}
+  end
+
+  def to_shape(pento) do
+    Shape.new(pento.name, pento.rotation, pento.reflected, pento.location)
   end
 end
